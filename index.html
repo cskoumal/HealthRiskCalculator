@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<!--
+    Author: Conner Skoumal
+    Scrum: Spider-scrum
+    Professor: Eric Pogue
+-->
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Health Risk Calculator</title>
+</head>
+
+<body style = background-color:darkcyan; color:whitesmoke;>
+    <h1 style = 'text-align: center;'>Health Risk Caculator</h1>
+    <pre style = 'font-size: 130%; text-align: center;'>
+    ______________________________________________________
+
+    Conner Skoumal Presents
+    With Help From Spider-Scrum
+    Health Risk Caculator: Conner Edition
+    ______________________________________________________
+
+    This program is inteded to calculate and understand someones 
+    potnetial health risks.  Please answer the following 
+    questions and we will calculate possible health risk.
+
+
+    </pre>
+    <br /><br /><br />
+
+    <hr>
+
+    <br /><br /><br />
+    <!-- Starts Asking Questions -->
+    <label>What's Your Age Range?</label>
+    <select id='q1'>
+        <option value='0'>Less Than 30</option>
+        <option value='10'>30-44</option>
+        <option value='20'>45-60</option>
+        <option value='30'>60+</option>
+    </select>
+    <br /><br /><br />
+
+    <label>What's Your Weight?</label>
+    <input type='number' id='q2' name='weight' size='10' required>
+    <label>lbs</label>
+    <br /><br /><br />
+
+    <label>What's Your Height?</label>
+    <input type='number' id='q3' name='height' size='10' required>
+    <label>ft/label>
+    <br /><br /><br />
+    
+    <img src='BP.png' alt='BP Image' style='width:500px;' class='center'>
+
+    <br /><br /><br />
+    <label>What's Your Blood Pressure</label>
+    <select id='q4'>
+        <option value='0'>Normal</option>
+        <option value='15'>Elevated</option>
+        <option value='30'>Stage 1</option>
+        <option value='75'>Stage 2</option>
+        <option value='100'>Crisis</option>
+    </select>
+    <br /><br /><br />
+
+    <label>Family History?</label>
+    <br />
+    Diabetes: <input type="checkbox" id='q5' value='10'>
+    <br />
+    Cancer: <input type="checkbox" id='q6' value='10'>
+    <br />
+    Alzheimer’s: <input type="checkbox" id='q7' value='10'>
+    <br /><br /><br />
+
+    <button onclick='calculateRisk()'>Calculate Health Risk</button>
+
+    <p id='healthRisk'></p>
+    <p id='remark'></p>
+
+<script>
+console.log('Starting Health Risk Calculator For The Web...');
+
+function calculateRisk() 
+{
+    console.log('calculateRisk()');
+
+    const MAX_SCORE = 45;
+
+    let ageRisk = document.getElementById('q1').selectedOptions[0].value;
+    console.log('Age = ' + document.getElementById('q1').selectedOptions[0].text);
+    console.log('Age Risk = ' + ageRisk);
+
+    let question2Response = document.getElementById('q2').value / 2.205;
+    console.log('Weight = ' + question2Response);
+    let question3Response = document.getElementById('q3').value / 10.764;
+    console.log('Height = ' + question3Response);
+    let BMI = question2Response / question3Response;
+    console.log('BMI = ' + BMI);
+    let BMIRisk = 0;
+    if (18.5 <= BMI <= 24.9) BMIRisk = 0;
+    else if (25.0 >= BMI >= 29.9) BMIRisk = 30;
+    else if (30.0 >= BMI >= 34.9) BMIRisk = 75;
+
+    let BPRisk = document.getElementById('q4').selectedOptions[0].value;
+    console.log('Blood Pressure = ' + document.getElementById('q4').selectedOptions[0].text);
+    console.log('Blood Pressure Risk = ' + BPRisk);
+
+    let famRisk = 0;
+    if (document.getElementById('q5').checked == true) famRisk = famRisk + 10;
+    if (document.getElementById('q6').checked == true) famRisk = famRisk + 10;
+    if (document.getElementById('q7').checked == true) famRisk = famRisk + 10;
+
+    let totalRisk = Number(ageRisk) + Number(BMIRisk) + Number(BPRisk) + Number(famRisk);
+
+    console.log('healthRisk = ' + totalRisk);
+
+    //Closing Remarks
+    //if (totalCompatibility < (100 / 3)) document.getElementById('remark').innerHTML = 'I do not want to be in the same room as you!';
+    //else if (totalCompatibility < ((100 / 3) * 2)) document.getElementById('remark').innerHTML = 'Hey, would you like to be friends with me?';
+    //else if (totalCompatibility < 100) document.getElementById('remark').innerHTML = 'Where have you been all my life?';
+
+    //Returns the Health Risk
+    //document.getElementById('healthRisk').innerHTML = 'Your health risk is ' + totalRisk;
+}
+</script>
+
+</body>
+</html>
